@@ -1,8 +1,8 @@
 export type ReactAnimalProps = {
     name?: ReactAnimalNames;
     color?: ReactAnimalColors;
-    size: ( 'sm' | 'md' | 'lg' ) | ( string & {} ) ;
-    shape: 'circle' | 'square' | 'rounded';
+    size?: ( 'sm' | 'md' | 'lg' ) | ( string & {} ) ;
+    shape?: 'circle' | 'square' | 'rounded';
     dance?: boolean;
     onClick?: () => void;
 };
@@ -86,4 +86,5 @@ export type ReactAnimalColors =
     | 'purple'
     | 'orange'
     | 'green'
-    | 'teal';
+    | 'teal'
+    | 'transparent';

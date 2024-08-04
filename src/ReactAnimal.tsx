@@ -3,15 +3,15 @@ import type { ReactAnimalNames, ReactAnimalProps } from './ReactAnimal.types';
 import { ANIMAL_NAMES, getAnimalColorByKey } from './constants';
 import "./ReactAnimal.css";
 
-const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalProps) => {
+const ReactAnimal = ({ name, color, shape = 'rounded', size = 'md', dance, onClick }: ReactAnimalProps) => {
     const getAvatar = (name?: ReactAnimalNames) => {
         if (name === undefined) {
             const randomAnimal = ANIMAL_NAMES[Math.floor(Math.random() * ANIMAL_NAMES.length)];
             
-            return [randomAnimal, `./assets/${randomAnimal}}.png`] as const;
+            return [randomAnimal, `./src/animals/${randomAnimal}.png`] as const;
         }
 
-        return [name, `./assets/${name}.png`] as const;
+        return [name, `./src/animals/${name}.png`] as const;
     };
 
     const getSize = (size: ReactAnimalProps['size']): string => {
@@ -23,7 +23,7 @@ const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalPr
             case 'lg':
                 return '125px';
             default:
-                if (size.match(/(^\d*)(em|ex|%|px|cm|mm|in|pt|pc|ch|rem|vh|vw|vmin|vmax)/)) {
+                if (size !== undefined && size.match(/(^\d*)(em|ex|%|px|cm|mm|in|pt|pc|ch|rem|vh|vw|vmin|vmax)/)) {
                     return size;
                 }
 
@@ -33,7 +33,7 @@ const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalPr
     };
 
     const getColor = (color: ReactAnimalProps['color']): string => {
-        if (color === undefined) return 'transparent';
+        if (color === undefined) return 'red';
 
         return getAnimalColorByKey(color);
     };
@@ -58,14 +58,15 @@ const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalPr
     const avatarStyle = {
         'height': animalSize,
         'width': animalSize,
-        'border-radius': getRadius(shape),
-        'background-color': getColor(color),
+        'borderRadius': getRadius(shape),
+        'backgroundColor': getColor(color),
     };
 
     return (
         <div 
             className="v-animal-avatar"
             style={avatarStyle}
+            onClick={onClick}
         >
             <img 
                 src={animalAvatar} 

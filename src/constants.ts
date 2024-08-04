@@ -90,5 +90,5 @@ export const getAnimalColorByKey = (key: string):  AnimalColorsType[keyof Animal
         return ANIMAL_COLORS[key as keyof AnimalColorsType];
     }
 
-    return 'transparent';
+    return '#FF0044';
 };
