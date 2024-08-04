@@ -1,6 +1,7 @@
 import React from 'react';
 import type { ReactAnimalNames, ReactAnimalProps } from './ReactAnimal.types';
 import { ANIMAL_NAMES, getAnimalColorByKey } from './constants';
+import "./ReactAnimal.css";
 
 const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalProps) => {
     const getAvatar = (name?: ReactAnimalNames) => {
