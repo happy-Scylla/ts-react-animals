@@ -1,17 +1,20 @@
 import React from 'react';
-import type { ReactAnimalNames, ReactAnimalProps } from './ReactAnimal.types';
 import { ANIMAL_NAMES, getAnimalColorByKey } from './constants';
 import "./ReactAnimal.css";
+import { ReactAnimalNames, ReactAnimalProps } from './ReactAnimal.types';
+import { getAnimalImage } from './imageHelper';
 
 const ReactAnimal = ({ name, color, shape = 'rounded', size = 'md', dance, onClick }: ReactAnimalProps) => {
     const getAvatar = (name?: ReactAnimalNames) => {
         if (name === undefined) {
             const randomAnimal = ANIMAL_NAMES[Math.floor(Math.random() * ANIMAL_NAMES.length)];
+            const animalSrc = getAnimalImage(randomAnimal)?.default;
             
-            return [randomAnimal, `./src/animals/${randomAnimal}.png`] as const;
+            return [randomAnimal, animalSrc] as const;
         }
 
-        return [name, `./src/animals/${name}.png`] as const;
+        const animalSrc = getAnimalImage(name)?.default;
+        return [name, animalSrc] as const;
     };
 
     const getSize = (size: ReactAnimalProps['size']): string => {
