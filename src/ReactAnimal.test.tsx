@@ -1,43 +1,44 @@
+import {
+    fireEvent,
+    render,
+    screen,
+  } from "@testing-library/react";
+import ReactAnimal, { type ReactAnimalIconNames } from "./ReactAnimal";
+import { axe, toHaveNoViolations } from "jest-axe";
+import { AnimalIcons } from "./AnimalIcons";
 import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import ReactAnimal from "./ReactAnimal";
-import { ANIMAL_NAMES } from "./constants";
 
-// todo: find better solution for images
 describe("ReactAnimal", () => {
-    it("no tests", () => {
-        expect(true).toBe(true);
+    expect.extend(toHaveNoViolations);
+    it("renders a default ReactAnimal component", async () => {
+        const { container } = render(<ReactAnimal />);
+        await screen.findAllByTestId("animalIcon");
+        const result = await axe(container);
+
+        expect(result).toHaveNoViolations();
     });
 
-    // it("renders a default ReactAnimal component", () => {
-    //     render(<ReactAnimal />);
-    //     const animal = screen.getByRole("img");
-    //     expect(animal);
-    // });
+    (Object.keys(AnimalIcons) as ReactAnimalIconNames[]).forEach((animalName) => {
+        it(`renders a ${animalName} ReactAnimal component`, async () => {
+            const { container } = render(<ReactAnimal name={animalName} />);
+            await screen.findAllByTestId("animalIcon");
+            const result = await axe(container);
 
-    // ANIMAL_NAMES.forEach((animalName) => {
-    //     it(`renders a ${animalName} ReactAnimal component`, () => {
-    //         render(<ReactAnimal name={animalName} />);
-    //         const animal = document.querySelector("img") as HTMLImageElement;
-    //         expect(animal.src).toContain(`/src/animals/${animalName}.png`);
-    //         expect(animal.alt).toBe(`image of ${animalName}`);
-    //     });
-    // });
+            expect(result).toHaveNoViolations();
+            
+            const wrapper = screen.getByRole('img');
+            expect(wrapper.getAttribute('aria-label')).toBe(`animal-avatar-${animalName}`);
+        });
+    });
 
-    // it("renders a dancing ReactAnimal component", () => {
-    //     render(<ReactAnimal dance />);
-    //     const animal = screen.getByRole("img");
-    //     expect(animal);
-    // });
+    it("rendes a ReactAnimal component with an onClick event", () => {
+        const callbackMock = jest.fn();
+        render(<ReactAnimal onClick={callbackMock} />);
 
-    // it("rendes a ReactAnimal component with an onClick event", () => {
-    //     const callbackMock = jest.fn();
-    //     render(<ReactAnimal onClick={callbackMock} />);
+        const animalWrapperDiv = screen.getByRole("img").closest("div");
+        expect(animalWrapperDiv);
 
-    //     const animalWrapperDiv = screen.getByRole("img").closest("div");
-    //     expect(animalWrapperDiv);
-
-    //     fireEvent.click(animalWrapperDiv!);
-    //     expect(callbackMock).toHaveBeenCalled();
-    // });
+        fireEvent.click(animalWrapperDiv!);
+        expect(callbackMock).toHaveBeenCalled();
+    });
 });

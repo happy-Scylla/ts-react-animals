@@ -1,21 +1,30 @@
-import React from 'react';
-import { ANIMAL_NAMES, getAnimalColorByKey } from './constants';
+import React, { Suspense, useMemo } from 'react';
+import { getAnimalColorByKey } from './constants';
 import "./ReactAnimal.css";
-import { ReactAnimalNames, ReactAnimalProps } from './ReactAnimal.types';
-import { getAnimalImage } from './imageHelper';
+import { AnimalIcons } from './AnimalIcons';
 
-const ReactAnimal = ({ name, color, shape = 'rounded', size = 'md', dance, onClick }: ReactAnimalProps) => {
-    const getAvatar = (name?: ReactAnimalNames) => {
-        if (name === undefined) {
-            const randomAnimal = ANIMAL_NAMES[Math.floor(Math.random() * ANIMAL_NAMES.length)];
-            const animalSrc = getAnimalImage(randomAnimal)?.default;
-            
-            return [randomAnimal, animalSrc] as const;
-        }
+export type ReactAnimalIconNames = keyof typeof AnimalIcons;
 
-        const animalSrc = getAnimalImage(name)?.default;
-        return [name, animalSrc] as const;
-    };
+export type ReactAnimalColors = 
+    | 'red'
+    | 'blue'
+    | 'yellow'
+    | 'purple'
+    | 'orange'
+    | 'green'
+    | 'teal';
+
+export type ReactAnimalProps = {
+    name?: ReactAnimalIconNames;
+    color?: ReactAnimalColors;
+    size?: ( 'sm' | 'md' | 'lg' ) | ( string & {} ) ;
+    shape?: 'circle' | 'square' | 'rounded';
+    dance?: boolean;
+    onClick?: () => void;
+};
+
+const ReactAnimal = ({ name = 'Otter', color, shape = 'rounded', size = 'md', dance, onClick }: ReactAnimalProps) => {
+    const AnimalIcon = useMemo(() => AnimalIcons[name], [name]);
 
     const getSize = (size: ReactAnimalProps['size']): string => {
         switch (size) {
@@ -35,7 +44,7 @@ const ReactAnimal = ({ name, color, shape = 'rounded', size = 'md', dance, onCli
         }
     };
 
-    const getColor = (color: ReactAnimalProps['color']): string => {
+    const getColor = (color?: ReactAnimalColors): string => {
         if (color === undefined) return 'red';
 
         return getAnimalColorByKey(color);
@@ -55,9 +64,7 @@ const ReactAnimal = ({ name, color, shape = 'rounded', size = 'md', dance, onCli
         }
     };
 
-    const [animalName, animalAvatar] = getAvatar(name);
     const animalSize = getSize(size);
-
     const avatarStyle = {
         'height': animalSize,
         'width': animalSize,
@@ -70,12 +77,16 @@ const ReactAnimal = ({ name, color, shape = 'rounded', size = 'md', dance, onCli
             className="v-animal-avatar"
             style={avatarStyle}
             onClick={onClick}
+            aria-label={`animal-avatar-${name}`}
+            role="img"
         >
-            <img 
-                src={animalAvatar} 
-                alt={`image of ${animalName}`}
-                className={dance ? 'v-animal-image v-animal-dance' : 'v-animal-image'}
-            />
+            <Suspense fallback={null}>
+                <AnimalIcon 
+                    style={{ width: '80%', height: '80%' }}
+                    className={dance ? 'v-animal-image v-animal-dance' : 'v-animal-image'}
+                    data-testid="animalIcon"
+                />
+            </Suspense>
         </div>
     );
 };

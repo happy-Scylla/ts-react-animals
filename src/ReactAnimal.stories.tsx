@@ -1,5 +1,6 @@
 import { StoryFn, Meta } from "@storybook/react";
 import ReactAnimal from "./ReactAnimal";
+import React from "react";
 
 export default {
     title: "React Animal Component",
