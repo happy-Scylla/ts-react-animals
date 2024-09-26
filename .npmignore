@@ -1,13 +1,9 @@
 /.storybook
 /storybook-static
 /assets
-/types
-
-!src/animals/*
 
 tsconfig.json
-rollup.config.js
 webpack.config.js
-jest.config.js
 babel.config.js
+jest.config.js
 package.json
