@@ -3,7 +3,6 @@
 /assets
 /images
 /node-modules
-/src
 
 tsconfig.json
 webpack.config.js
