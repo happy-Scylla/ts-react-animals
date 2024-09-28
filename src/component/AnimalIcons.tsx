@@ -6,14 +6,151 @@ declare const require: {
     ): __WebpackModuleApi.RequireContext;
   };
 
-const animalIcons = require.context('../../images', false, /\.png$/);
+export type ReactAnimalNames = 
+  | 'alligator'
+  | 'anteater'
+  | 'armadillo'
+  | 'auroch'
+  | 'axolotl'
+  | 'badger'
+  | 'bat'
+  | 'beaver'
+  | 'buffalo'
+  | 'camel'
+  | 'capybara'
+  | 'chameleon'
+  | 'cheetah'
+  | 'chinchilla'
+  | 'chipmunk'
+  | 'chupacabra'
+  | 'cormorant'
+  | 'coyote'
+  | 'crow'
+  | 'dingo'
+  | 'dinosaur'
+  | 'dolphin'
+  | 'duck'
+  | 'elephant'
+  | 'ferret'
+  | 'fox'
+  | 'frog'
+  | 'giraffe'
+  | 'gopher'
+  | 'grizzly'
+  | 'hedgehog'
+  | 'hippo'
+  | 'hyena'
+  | 'ibex'
+  | 'ifrit'
+  | 'iguana'
+  | 'jackal'
+  | 'kangaroo'
+  | 'koala'
+  | 'kraken'
+  | 'lemur'
+  | 'leopard'
+  | 'liger'
+  | 'llama'
+  | 'manatee'
+  | 'mink'
+  | 'monkey'
+  | 'moose'
+  | 'narwhal'
+  | 'orangutan'
+  | 'otter'
+  | 'panda'
+  | 'penguin'
+  | 'platypus'
+  | 'pumpkin'
+  | 'python'
+  | 'quagga'
+  | 'rabbit'
+  | 'raccoon'
+  | 'rhino'
+  | 'sheep'
+  | 'shrew'
+  | 'skunk'
+  | 'squirrel'
+  | 'tiger'
+  | 'turtle'
+  | 'walrus'
+  | 'wolf'
+  | 'wolverine'
+  | 'wombat';
 
-export const animalIconMap: { [key: string]: string } = animalIcons.keys().reduce((images: any, path: string) => {
-    const iconName = path.replace('./', '').replace('.png', '');
-    images[iconName] = animalIcons(path);
+const animalImages = require.context('../../images', false, /\.png$/);
 
-    return images;
-}, {});
+export const animalImageMap: Record<ReactAnimalNames, string> = {
+  alligator: animalImages('./alligator.png'),
+  anteater: animalImages('./anteater.png'),
+  armadillo: animalImages('./armadillo.png'),
+  auroch: animalImages('./auroch.png'),
+  axolotl: animalImages('./axolotl.png'),
+  badger: animalImages('./badger.png'),
+  bat: animalImages('./bat.png'),
+  beaver: animalImages('./beaver.png'),
+  buffalo: animalImages('./buffalo.png'),
+  camel: animalImages('./camel.png'),
+  capybara: animalImages('./capybara.png'),
+  chameleon: animalImages('./chameleon.png'),
+  cheetah: animalImages('./cheetah.png'),
+  chinchilla: animalImages('./chinchilla.png'),
+  chipmunk: animalImages('./chipmunk.png'),
+  chupacabra: animalImages('./chupacabra.png'),
+  cormorant: animalImages('./cormorant.png'),
+  coyote: animalImages('./coyote.png'),
+  crow: animalImages('./crow.png'),
+  dingo: animalImages('./dingo.png'),
+  dinosaur: animalImages('./dinosaur.png'),
+  dolphin: animalImages('./dolphin.png'),
+  duck: animalImages('./duck.png'),
+  elephant: animalImages('./elephant.png'),
+  ferret: animalImages('./ferret.png'),
+  fox: animalImages('./fox.png'),
+  frog: animalImages('./frog.png'),
+  giraffe: animalImages('./giraffe.png'),
+  gopher: animalImages('./gopher.png'),
+  grizzly: animalImages('./grizzly.png'),
+  hedgehog: animalImages('./hedgehog.png'),
+  hippo: animalImages('./hippo.png'),
+  hyena: animalImages('./hyena.png'),
+  ibex: animalImages('./ibex.png'),
+  ifrit: animalImages('./ifrit.png'),
+  iguana: animalImages('./iguana.png'),
+  jackal: animalImages('./jackal.png'),
+  kangaroo: animalImages('./kangaroo.png'),
+  koala: animalImages('./koala.png'),
+  kraken: animalImages('./kraken.png'),
+  lemur: animalImages('./lemur.png'),
+  leopard: animalImages('./leopard.png'),
+  liger: animalImages('./liger.png'),
+  llama: animalImages('./llama.png'),
+  manatee: animalImages('./manatee.png'),
+  mink: animalImages('./mink.png'),
+  monkey: animalImages('./monkey.png'),
+  moose: animalImages('./moose.png'),
+  narwhal: animalImages('./narwhal.png'),
+  orangutan: animalImages('./orangutan.png'),
+  otter: animalImages('./otter.png'),
+  panda: animalImages('./panda.png'),
+  penguin: animalImages('./penguin.png'),
+  platypus: animalImages('./platypus.png'),
+  pumpkin: animalImages('./pumpkin.png'),
+  python: animalImages('./python.png'),
+  quagga: animalImages('./quagga.png'),
+  rabbit: animalImages('./rabbit.png'),
+  raccoon: animalImages('./raccoon.png'),
+  rhino: animalImages('./rhino.png'),
+  sheep: animalImages('./sheep.png'),
+  shrew: animalImages('./shrew.png'),
+  skunk: animalImages('./skunk.png'),
+  squirrel: animalImages('./squirrel.png'),
+  tiger: animalImages('./tiger.png'),
+  turtle: animalImages('./turtle.png'),
+  walrus: animalImages('./walrus.png'),
+  wolf: animalImages('./wolf.png'),
+  wolverine: animalImages('./wolverine.png'),
+  wombat: animalImages('./wombat.png'),
+};
 
-export const animalNames = Object.keys(animalIconMap);
-export type AnimalNames = typeof animalNames[number];
+export const animalNames = Object.keys(animalImageMap) as ReactAnimalNames[];

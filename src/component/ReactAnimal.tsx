@@ -1,9 +1,7 @@
-import React, { Suspense, useMemo } from 'react';
+import React from 'react';
 import { getAnimalColorByKey } from './constants';
-import "./ReactAnimal.css";
-import { animalIconMap, AnimalNames, animalNames } from './AnimalIcons';
-
-export type ReactAnimalIconNames = AnimalNames;
+import "../styles/ReactAnimal.css";
+import { animalImageMap, animalNames, type ReactAnimalNames } from './AnimalIcons';
 
 export type ReactAnimalColors = 
     | 'red'
@@ -15,7 +13,7 @@ export type ReactAnimalColors =
     | 'teal';
 
 export type ReactAnimalProps = {
-    name?: ReactAnimalIconNames;
+    name?: ReactAnimalNames;
     color?: ReactAnimalColors;
     size?: ( 'sm' | 'md' | 'lg' ) | ( string & {} ) ;
     shape?: 'circle' | 'square' | 'rounded';
@@ -23,11 +21,15 @@ export type ReactAnimalProps = {
     onClick?: () => void;
 };
 
-const ReactAnimal = ({ name = 'otter', color, shape = 'rounded', size = 'md', dance, onClick }: ReactAnimalProps) => {
-    const getRandomAnimalIcon = () => {
+const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalProps) => {
+    const getAnimalIcon = () => {
+        if (name !== undefined && animalImageMap[name] !== undefined) {
+            return animalImageMap[name];
+        }
+
         const randomIndex = Math.floor(Math.random() * animalNames.length);
 
-        return animalIconMap[animalNames[randomIndex]];
+        return animalImageMap[animalNames[randomIndex]];
     };
 
     const getSize = (size: ReactAnimalProps['size']): string => {
@@ -43,7 +45,6 @@ const ReactAnimal = ({ name = 'otter', color, shape = 'rounded', size = 'md', da
                     return size;
                 }
 
-                console.error('Invalid size prop. Defaulting to 70px');
                 return '70px';
         }
     };
@@ -63,7 +64,6 @@ const ReactAnimal = ({ name = 'otter', color, shape = 'rounded', size = 'md', da
             case 'rounded':
                 return '10%';
             default:
-                console.error('Invalid shape prop. Defaulting to shape circle');
                 return '10%';
         }
     };
@@ -85,8 +85,9 @@ const ReactAnimal = ({ name = 'otter', color, shape = 'rounded', size = 'md', da
             role="img"
         >
             <img
-                src={animalImage}
-                alt={A}
+                src={getAnimalIcon()}
+                alt={`animal-avatar-${name}`}
+                style={{ 'height': '80%', 'width': '80%' }}
                 className={dance ? 'v-animal-image v-animal-dance' : 'v-animal-image'}
                 data-testid="animalIcon"
             />

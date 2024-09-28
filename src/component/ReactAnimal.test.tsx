@@ -3,9 +3,9 @@ import {
     render,
     screen,
   } from "@testing-library/react";
-import ReactAnimal, { type ReactAnimalIconNames } from "./ReactAnimal";
+import ReactAnimal from "./ReactAnimal";
 import { axe, toHaveNoViolations } from "jest-axe";
-import { AnimalIcons } from "./AnimalIcons";
+import { animalNames } from "./AnimalIcons";
 import React from "react";
 
 describe("ReactAnimal", () => {
@@ -18,7 +18,7 @@ describe("ReactAnimal", () => {
         expect(result).toHaveNoViolations();
     });
 
-    (Object.keys(AnimalIcons) as ReactAnimalIconNames[]).forEach((animalName) => {
+    (animalNames.forEach((animalName) => {
         it(`renders a ${animalName} ReactAnimal component`, async () => {
             const { container } = render(<ReactAnimal name={animalName} />);
             await screen.findAllByTestId("animalIcon");
@@ -29,7 +29,7 @@ describe("ReactAnimal", () => {
             const wrapper = screen.getByRole('img');
             expect(wrapper.getAttribute('aria-label')).toBe(`animal-avatar-${animalName}`);
         });
-    });
+    }));
 
     it("rendes a ReactAnimal component with an onClick event", () => {
         const callbackMock = jest.fn();
