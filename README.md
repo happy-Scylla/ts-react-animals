@@ -7,13 +7,13 @@ A rewrite of the react-animals package by **@arvinpoddar** in Typescript
 ## Installation Process 
 
 ```bash
-npm install ts-eact-animals
+npm install react-animals-ts
 ```
 
 Once you've successfully imported the component, simply add it to a file:
 
 ```tsx
-import ReactAnimal from "ts-react-animals";
+import { ReactAnimal } from "react-animals-ts";
 
 <ReactAnimal {...} />
 ```

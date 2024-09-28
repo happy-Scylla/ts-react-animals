@@ -3,7 +3,7 @@ import {
     render,
     screen,
   } from "@testing-library/react";
-import ReactAnimal from "./ReactAnimal";
+import { ReactAnimal } from "./ReactAnimal";
 import { axe, toHaveNoViolations } from "jest-axe";
 import { animalNames } from "./AnimalIcons";
 import React from "react";

@@ -21,7 +21,7 @@ export type ReactAnimalProps = {
     onClick?: () => void;
 };
 
-const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalProps) => {
+export const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalProps) => {
     const getAnimalIcon = () => {
         if (name !== undefined && animalImageMap[name] !== undefined) {
             return animalImageMap[name];
@@ -94,5 +94,3 @@ const ReactAnimal = ({ name, color, shape, size, dance, onClick }: ReactAnimalPr
         </div>
     );
 };
-
-export default ReactAnimal;
