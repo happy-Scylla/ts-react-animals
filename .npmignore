@@ -1,9 +1,13 @@
 /.storybook
 /storybook-static
 /assets
+/images
+/node-modules
+/src
 
 tsconfig.json
 webpack.config.js
 babel.config.js
 jest.config.js
 package.json
+package-lock.json

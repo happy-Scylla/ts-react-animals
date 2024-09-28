@@ -1,6 +1,6 @@
 {
   "name": "ts-react-animals",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A typescript rewrite of the react-animals package by arvinpoddar ",
   "keywords": [
     "React",
