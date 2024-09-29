@@ -23,7 +23,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: ['style-loader', 'css-loader'],
       },
       {
         test: /\.(png|jpg|gif)$/i,
@@ -40,7 +40,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin()],
   externals: {
     react: 'react',
     'react-dom': 'react-dom',
